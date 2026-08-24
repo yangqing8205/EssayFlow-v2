@@ -10,7 +10,8 @@ function expectedHashPrefix() {
 }
 
 export function verifyRubric(text: string) {
-  const actual = createHash("sha256").update(text).digest("hex");
+  const normalizedText = text.replace(/\r\n/g, "\n");
+  const actual = createHash("sha256").update(normalizedText).digest("hex");
   if (!actual.startsWith(expectedHashPrefix())) {
     throw new Error("V6 rubric hash mismatch");
   }
