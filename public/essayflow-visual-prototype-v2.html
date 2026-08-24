@@ -1296,6 +1296,8 @@
     .scoring-closing { text-align:center; }
     .scoring-closing .scoring-title { margin-left:auto; margin-right:auto; }
     .scoring-cta { display:inline-block; margin-top:34px; padding:13px 0; border-bottom:1px solid currentColor; color:var(--blue); font-size:15px; font-weight:800; text-decoration:none; }
+    .evaluate-entry { position:fixed; z-index:40; top:22px; right:28px; display:inline-flex; align-items:center; gap:12px; padding:12px 18px; border:1px solid var(--blue); color:#fff; background:var(--blue); font-size:13px; font-weight:800; letter-spacing:.04em; text-decoration:none; box-shadow:0 8px 28px rgb(24 71 255 / 18%); transition:transform 180ms ease,box-shadow 180ms ease; }
+    .evaluate-entry:hover { transform:translateY(-2px); box-shadow:0 12px 34px rgb(24 71 255 / 25%); }
 
     /* Real student scoring and rubric continuation */
     .sample-authentic { color:var(--gray-dark); }
@@ -1388,6 +1390,7 @@
     }
 
     @media (max-width: 900px) {
+      .evaluate-entry { top:14px; right:14px; padding:10px 14px; }
       html { scroll-snap-type: y proximity; }
       .cover-header { left: 22px; right: 22px; }
       .quote-layout { left: 6vw; right: 6vw; top: 8%; }
@@ -1449,6 +1452,7 @@
   </style>
 </head>
 <body>
+  <a class="evaluate-entry" href="/evaluate" aria-label="进入 EssayFlow 评测工作台">开始评测 <span aria-hidden="true">→</span></a>
   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
   <main>
@@ -1831,7 +1835,7 @@
           <h2 class="scoring-title reveal delay-1">先让原文说完，再开始评分。</h2>
           <div class="method-steps reveal delay-2"><article class="method-step"><small>01</small><p>读原文，只列已成立的事实，不看学生续写。</p></article><article class="method-step"><small>02</small><p>读原文，提取五类线索和主题轨迹，仍然不看学生续写。</p></article><article class="method-step"><small>03</small><p>拿到学生续写，逐条核对第一步的事实清单。</p></article><article class="method-step"><small>04</small><p>四项定档、语言定分。</p></article></div>
           <p class="method-proof reveal delay-3">同一个模型，一次调用同时读原文和学生续写时，会先看到结果再选择前提；把原文分析和学生分析拆开，是为了让原文先说完。</p>
-          <a class="scoring-cta reveal delay-3" href="essayflow-evaluate.html">测试我的续写 →</a>
+          <a class="scoring-cta reveal delay-3" href="/evaluate">测试我的续写 →</a>
         </div>
       </section>`;
 
