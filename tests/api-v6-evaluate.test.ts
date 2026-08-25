@@ -86,6 +86,14 @@ describe("POST /api/v6/evaluate", () => {
     expect(excessive.status).toBe(400);
   });
 
+  it("does not consume the hourly allowance for invalid input", async () => {
+    const handler = createV6EvaluateHandler({ env, runPipeline: successfulPipeline, now: () => 1_000 });
+    for (let index = 0; index < 3; index += 1) {
+      expect((await handler(request({}, { sourceText: "short" }))).status).toBe(400);
+    }
+    expect((await handler(request())).status).toBe(200);
+  });
+
   it("streams ordered stage events and one canonical result", async () => {
     const handler = createV6EvaluateHandler({ env, runPipeline: successfulPipeline });
     const response = await handler(request());

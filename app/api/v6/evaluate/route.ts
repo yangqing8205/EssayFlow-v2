@@ -68,7 +68,6 @@ export function createV6EvaluateHandler(dependencies: HandlerDependencies = {}) 
     let origin: string | undefined;
     try {
       origin = allowedOrigin(request, env);
-      consumeIpAllowance(request, env, now());
     } catch (error) {
       if (error instanceof EvaluationAccessError) return jsonError(error, origin);
       return Response.json({ error: "访问校验失败", code: "ACCESS_ERROR" }, { status: 500 });
@@ -96,6 +95,13 @@ export function createV6EvaluateHandler(dependencies: HandlerDependencies = {}) 
         { error: parsed.error.issues[0]?.message ?? "提交内容不完整", code: "INVALID_INPUT" },
         { status: 400, headers: corsHeaders(origin) },
       );
+    }
+
+    try {
+      consumeIpAllowance(request, env, now());
+    } catch (error) {
+      if (error instanceof EvaluationAccessError) return jsonError(error, origin);
+      return Response.json({ error: "访问校验失败", code: "ACCESS_ERROR" }, { status: 500 });
     }
 
     const encoder = new TextEncoder();
