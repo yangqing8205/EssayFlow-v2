@@ -4,10 +4,6 @@ import { describe, expect, it } from "vitest";
 
 describe("public evaluation page", () => {
   const html = readFileSync(join(process.cwd(), "public/essayflow-evaluate.html"), "utf8");
-  const storyHtml = readFileSync(
-    join(process.cwd(), "public/essayflow-visual-prototype-v2.html"),
-    "utf8",
-  );
   const routeSource = readFileSync(join(process.cwd(), "app/evaluate/page.tsx"), "utf8");
 
   it("uses the approved blue-white editorial design and the live v6 endpoint", () => {
@@ -26,10 +22,9 @@ describe("public evaluation page", () => {
     expect(html).toContain("event.message || '评测未完成，请重试。'");
   });
 
-  it("keeps the reading experience and evaluation in one site", () => {
-    expect(storyHtml).toContain('class="evaluate-entry" href="/essayflow-evaluate.html"');
-    expect(storyHtml).toContain('class="scoring-cta reveal delay-3" href="/essayflow-evaluate.html"');
+  it("keeps the homepage and evaluation page connected without the old prototype", () => {
     expect(routeSource).toContain('redirect("/essayflow-evaluate.html")');
-    expect(html).toContain('href="essayflow-visual-prototype-v2.html#page-32"');
+    expect(html).toContain('href="/">← 返回首页</a>');
+    expect(html).not.toContain("essayflow-visual-prototype-v2.html");
   });
 });
