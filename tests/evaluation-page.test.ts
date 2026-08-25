@@ -8,6 +8,7 @@ describe("public evaluation page", () => {
     join(process.cwd(), "public/essayflow-visual-prototype-v2.html"),
     "utf8",
   );
+  const routeSource = readFileSync(join(process.cwd(), "app/evaluate/page.tsx"), "utf8");
 
   it("uses the approved blue-white editorial design and the live v6 endpoint", () => {
     expect(html).toContain("--blue: #1847ff");
@@ -26,9 +27,9 @@ describe("public evaluation page", () => {
   });
 
   it("keeps the reading experience and evaluation in one site", () => {
-    expect(storyHtml).toContain('class="evaluate-entry" href="/evaluate"');
-    expect(storyHtml).toContain('class="scoring-cta reveal delay-3" href="/evaluate"');
-    expect(storyHtml).not.toContain('href="essayflow-evaluate.html"');
+    expect(storyHtml).toContain('class="evaluate-entry" href="/essayflow-evaluate.html"');
+    expect(storyHtml).toContain('class="scoring-cta reveal delay-3" href="/essayflow-evaluate.html"');
+    expect(routeSource).toContain('redirect("/essayflow-evaluate.html")');
     expect(html).toContain('href="essayflow-visual-prototype-v2.html#page-32"');
   });
 });
